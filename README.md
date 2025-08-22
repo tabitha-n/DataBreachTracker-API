@@ -1,53 +1,134 @@
-# DataBreachTracker API
+# 🫆 DataBreachTracker-API
 
 Every day, companies experience data breaches that expose sensitive personal and business information. Most people don’t know which companies were affected or what information was taken.
 
-The DataBreachTracker API makes this information simple and easy to access for everyone, with no technical jargon—just the facts.
+The DataBreachTracker-API makes this information simple and easy to access for everyone, with no technical jargon—just the facts.
 
-## 📌 Features
+## 🕵 What the API Tells You
 
-View all cybersecurity breaches
+    📌 Which companies had a data breach
 
-Retrieve a breach by ID
+    📌 What kind of information was lost
 
-Filter breaches by organisation (and additional filters via query params)
+    📌 When the breach happened
 
-Add new breach records
+## ✴️ Features
 
-Update existing breach records
+    🔍 View all cybersecurity breaches
 
-Delete breaches
+    🔍 Retrieve a breach by ID
 
-Fully functional with a MySQL database
+    ➕ Add new breach records
 
-Robust error handling with custom exceptions
+    ✏️ Update existing breach records
 
-## ⚙️ Tech Stack
+    ❌ Delete breach records
 
-Java 21+
+    ⚡ Fully functional with a MySQL database
 
-Spring Boot 3.x
+    ⚠️ Exception handling with helpful error responses
 
-Spring Data JPA
+## ⚙ Tech Stack
 
-MySQL
+    Java 21+
 
-Maven
+    Spring Boot 3+
 
-JUnit 5 (for testing)
+    MySQL 8+  
 
-## 🚀 Setup Instructions
-### 1. Prerequisites
+    Maven (dependency management)
 
-    Install Java JDK 21+
+# 🚀 Setup Instructions
 
-    Install MySQL 8+
+  ### 1. Clone the repository
 
-    Install Git
+      git clone https://github.com/your-username/DataBreachTracker-API.git
 
-    (Optional) Install VS Code / IntelliJ IDEA with Java + Spring extensions
+      cd DataBreachTracker-API
 
-### 2. Clone Repository
-    git clone https://github.com/<your-username>/DataBreachTracker-API.git
+  ### 2. Import the database
 
-    cd DataBreachTracker-API
+      Run the provided SQL dump file into MySQL:
+
+      mysql -u <your-username> -p databreachtracker < db-dump.sql
+
+  ### 3. Configure database credentials
+
+    The main configuration is in application.properties:
+
+    # APPLICATION 
+    spring.application.name=DataBreachTracker
+    server.port=8080
+
+    # DATABASE CONFIGURATION
+    spring.datasource.url=jdbc:mysql://localhost:3306/databreachtracker?useSSL=false&serverTimezone=UTC
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.config.import=local.properties   # Database credentials are stored here (not committed to GitHub)
+
+    # HIBERNATE CONFIGURATION
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.show-sql=true
+
+    👉 Important: 
+      Create a file called local.properties in the root of your project with your MySQL username and password:
+
+      spring.datasource.username=yourUsername
+      spring.datasource.password=yourPassword
+
+    ⛔️ It should be excluded via .gitignore 
+
+  ### 4. Run the application
+
+      From the terminal:
+      ./mvnw spring-boot:run
+
+## 🔗 API Endpoints
+| Method | Endpoint                          | Description                     |
+|--------|----------------------------------|---------------------------------|
+| GET    | `/api/breaches`                     | Get all breaches                |
+| GET    | `/api/breaches?organisation={name}`| Filter breaches by organisation |
+| GET    | `/api/breaches/{id}`                | Get a breach by ID              |
+| POST   | `/api/breaches`                     | Add a new breach                |
+| PUT    | `/api/breaches/{id}`                | Update a breach                 |
+| DELETE | `/api/breaches/{id}`                | Delete a breach                 |
+
+## 🧪 Maven Tests
+| Command                   | Description                                      |
+|---------------------------|--------------------------------------------------|
+| `./mvnw clean`            | Cleans the target directory (removes compiled files) |
+| `./mvnw compile`          | Compiles the project                             |
+| `./mvnw test`             | Runs unit tests                                  |
+| `./mvnw clean test`       | Cleans and runs tests                            |
+| `./mvnw package`          | Builds the project into a JAR file              |
+| `./mvnw spring-boot:run`  | Runs the Spring Boot application    
+
+
+## 🗄️ Files Overview
+
+### 📁 Breach.java	                  
+
+Holds the details of a data breach, like company name, date, number of people affected, and what information was exposed.
+
+### 📁 BreachRepository.java	        
+
+Keeps and finds breach records in the database. Helps the app look up breaches quickly.
+
+### 📁 BreachService.java	          
+
+Decides how to handle breach information. Adds new breaches, updates them, finds them, or deletes them.
+
+### 📁 BreachController.java	
+
+Handles requests from users or apps. Lets people see, add, change, or remove breach information.
+
+### 📁 BreachNotFoundException.java	
+
+Shows an error message if someone tries to get a breach that doesn’t exist.
+
+### 📁 GlobalExceptionHandler.java	
+
+Catches errors and sends easy-to-read messages back to the user.
+
+### 📁 DataBreachTrackerApplication.java	
+
+Starts the DataBreachTracker app so it can run and show information about breaches.
