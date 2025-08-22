@@ -1,76 +1,44 @@
 package com.cbfacademy.DataBreachTracker;
 
-// This is the main application class for the Data Breach Tracker application.
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Entity // Indicates that this class is a JPA entity
-@Table(name = "breaches")                                   // Maps this entity to the "breaches" table in the database
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)       // Uses single table inheritance strategy
-@DiscriminatorColumn(name = "breach_type")                  // Specifies the column used to differentiate between different types of breaches
-
-// This class represents a data breach entity in the application.
+@Entity
 public class Breach {
-    @Id                                                     // Specifies the primary key of the entity
-    @GeneratedValue(strategy = GenerationType.IDENTITY)     // Automatically generates the primary key value
-    private Long id;                    // Unique identifier for the breach
 
-    private String companyName;         // Name of the company affected by the breach
-    private LocalDateTime breachDate;   // Date when the breach occurred
-    private String dataLost;            // Description of the data lost in the breach
-    private String description;         // Additional description of the breach
-    private int recordsAffected;        // Number of records affected by the breach
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Read-only, managed by JPA
 
-    // Constructors
-    public Breach() {
-    }
+    private String organisation;
+    private LocalDateTime date;
+    private String description;
+    private int affectedUsers;
 
-    public Breach(String companyName, LocalDateTime breachDate, String dataLost, String description, int recordsAffected) {
-        this.companyName = companyName;
-        this.breachDate = breachDate;
-        this.dataLost = dataLost;
+    public Breach() {}
+
+    public Breach(String organisation, LocalDateTime date, String description, int affectedUsers) {
+        this.organisation = organisation;
+        this.date = date;
         this.description = description;
-        this.recordsAffected = recordsAffected;
+        this.affectedUsers = affectedUsers;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; } // No setter
 
-    public String getCompanyName() {
-        return companyName;
-    }
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+    public String getOrganisation() { return organisation; }
+    public void setOrganisation(String organisation) { this.organisation = organisation; }
 
-    public LocalDateTime getBreachDate() {
-        return breachDate;
-    }
-    public void setBreachDate(LocalDateTime breachDate) {
-        this.breachDate = breachDate;
-    }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
 
-    public String getDataLost() {
-        return dataLost;
-    }
-    public void setDataLost(String dataLost) {
-        this.dataLost = dataLost;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description; 
-    }
-
-    public int getRecordsAffected() {
-        return recordsAffected;
-    }
-    public void setRecordsAffected(int recordsAffected) {
-        this.recordsAffected = recordsAffected;
-    }
-    
+    public int getAffectedUsers() { return affectedUsers; }
+    public void setAffectedUsers(int affectedUsers) { this.affectedUsers = affectedUsers; }
 }
+
