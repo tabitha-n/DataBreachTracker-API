@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DataBreachTrackerApplicationTests {
+class DataBreachTrackerApplicationTest {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {
+        // Ensures the Spring Boot application starts successfully
+    }
 }
+
