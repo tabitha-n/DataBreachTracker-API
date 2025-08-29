@@ -1,8 +1,16 @@
 # 🫆 DataBreachTracker-API
 
-Every day, companies experience data breaches that expose sensitive personal and business information. Most people don’t know which companies were affected or what information was taken.
+Every day, companies experience data breaches that expose sensitive personal and business information — sometimes affecting millions of people.
 
-The DataBreachTracker-API makes this information simple and easy to access for everyone, with no technical jargon—just the facts.
+The Data Breach Tracker makes information about these breaches accessible to different audiences:
+
+1. For researchers, developers, and cybersecurity enthusiasts.
+
+    As a cybersecurity enthusiast or developer, I want to use this API to access and manage data breach records so that I can analyse trends, build dashboards, or integrate the information into my own tools.
+
+2. For the general public.
+
+    As a member of the general public, I want to access a simple, user-friendly interface (planned for the future) that keeps me informed about data breaches, so I can understand their scale and impact without needing technical knowledge.
 
 ## 🕵 What the API Tells You
 
@@ -132,3 +140,4 @@ Catches errors and sends easy-to-read messages back to the user.
 ### 📁 DataBreachTrackerApplication.java	
 
 Starts the DataBreachTracker app so it can run and show information about breaches.
+
