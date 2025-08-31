@@ -1,6 +1,6 @@
 package com.cbfacademy.DataBreachTracker;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,13 +14,13 @@ public class Breach {
     private Long id; // Read-only, managed by JPA
 
     private String organisation;
-    private LocalDateTime date;
+    private LocalDate date;
     private String description;
     private int affectedUsers;
 
     public Breach() {}
 
-    public Breach(String organisation, LocalDateTime date, String description, int affectedUsers) {
+    public Breach(String organisation, LocalDate date, String description, int affectedUsers) {
         this.organisation = organisation;
         this.date = date;
         this.description = description;
@@ -32,8 +32,8 @@ public class Breach {
     public String getOrganisation() { return organisation; }
     public void setOrganisation(String organisation) { this.organisation = organisation; }
 
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
