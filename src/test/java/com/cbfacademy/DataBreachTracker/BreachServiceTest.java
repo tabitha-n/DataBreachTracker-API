@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +23,7 @@ class BreachServiceTest {
         // Create a new Breach object before each test
         testBreach = new Breach();
         testBreach.setOrganisation("Example Org");
-        testBreach.setDate(LocalDateTime.now());
+        testBreach.setDate(LocalDate.now());
         testBreach.setDescription("Sample breach description");
         testBreach.setAffectedUsers(5000);
     }
