@@ -1,7 +1,7 @@
 package com.cbfacademy.DataBreachTracker;
 
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -39,7 +39,7 @@ public class BreachController {
         if (organisation != null) {
             return breachService.getBreachesByOrganisationFilter(organisation);
         } else if (date != null) {
-            LocalDateTime parsedDate = LocalDateTime.parse(date);
+            LocalDate parsedDate = LocalDate.parse(date);
             return breachService.getBreachesAfterDate(parsedDate);
         }
         return breachService.getAllBreaches(); // default if no filter
