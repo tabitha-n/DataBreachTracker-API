@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+// JPA Entity representing a data breach
 @Entity
 public class Breach {
 
@@ -15,15 +16,17 @@ public class Breach {
 
     private String organisation;
     private LocalDate date;
-    private String description;
+    private String incidentType;
+    private String dataCompromised;
     private int affectedUsers;
 
     public Breach() {}
 
-    public Breach(String organisation, LocalDate date, String description, int affectedUsers) {
+    public Breach(String organisation, LocalDate date, String incidentType, String dataCompromised, int affectedUsers) {
         this.organisation = organisation;
         this.date = date;
-        this.description = description;
+        this.incidentType = incidentType;
+        this.dataCompromised = dataCompromised;
         this.affectedUsers = affectedUsers;
     }
 
@@ -35,8 +38,11 @@ public class Breach {
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getIncidentType() { return incidentType; }
+    public void setIncidentType(String incidentType) { this.incidentType = incidentType; }
+
+    public String getDataCompromised() { return dataCompromised; }
+    public void setDataCompromised(String dataCompromised) { this.dataCompromised = dataCompromised; }
 
     public int getAffectedUsers() { return affectedUsers; }
     public void setAffectedUsers(int affectedUsers) { this.affectedUsers = affectedUsers; }

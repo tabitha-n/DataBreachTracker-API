@@ -24,7 +24,8 @@ class BreachServiceTest {
         testBreach = new Breach();
         testBreach.setOrganisation("Example Org");
         testBreach.setDate(LocalDate.now());
-        testBreach.setDescription("Sample breach description");
+        testBreach.setIncidentType("Sample breach IncidentType");
+        testBreach.setDataCompromised("Sample breach DataCompromised");
         testBreach.setAffectedUsers(5000);
     }
 
@@ -34,7 +35,8 @@ class BreachServiceTest {
 
         assertNotNull(savedBreach.getId()); // ID should be generated
         assertEquals("Example Org", savedBreach.getOrganisation());
-        assertEquals("Sample breach description", savedBreach.getDescription());
+        assertEquals("Sample breach IncidentType", savedBreach.getIncidentType());
+        assertEquals("Sample breach DataCompromised", savedBreach.getDataCompromised());
         assertEquals(5000, savedBreach.getAffectedUsers());
     }
 
@@ -54,7 +56,8 @@ class BreachServiceTest {
         Breach fetchedBreach = breachService.getBreachById(savedBreach.getId());
 
         assertEquals(savedBreach.getOrganisation(), fetchedBreach.getOrganisation());
-        assertEquals(savedBreach.getDescription(), fetchedBreach.getDescription());
+        assertEquals(savedBreach.getIncidentType(), fetchedBreach.getIncidentType());
+        assertEquals(savedBreach.getDataCompromised(), fetchedBreach.getDataCompromised());
     }
 
     @Test
