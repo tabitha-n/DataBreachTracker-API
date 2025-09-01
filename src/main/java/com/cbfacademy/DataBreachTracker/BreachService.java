@@ -45,7 +45,8 @@ public class BreachService {
 
         existingBreach.setOrganisation(breach.getOrganisation());
         existingBreach.setDate(breach.getDate());
-        existingBreach.setDescription(breach.getDescription());
+        existingBreach.setIncidentType(breach.getIncidentType());
+        existingBreach.setDataCompromised(breach.getDataCompromised());
         existingBreach.setAffectedUsers(breach.getAffectedUsers());
 
         return breachRepository.save(existingBreach);
