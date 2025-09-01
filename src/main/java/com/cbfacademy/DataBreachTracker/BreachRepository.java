@@ -1,7 +1,7 @@
 package com.cbfacademy.DataBreachTracker;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BreachRepository extends JpaRepository<Breach, Long> {
@@ -9,7 +9,7 @@ public interface BreachRepository extends JpaRepository<Breach, Long> {
 
     // New filtering methods
     List<Breach> findByOrganisationContainingIgnoreCase(String organisation);
-    List<Breach> findByDateAfter(LocalDateTime date);
+    List<Breach> findByDateAfter(LocalDate date);
 }
 
 
