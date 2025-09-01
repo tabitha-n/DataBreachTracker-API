@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +23,9 @@ class BreachServiceTest {
         // Create a new Breach object before each test
         testBreach = new Breach();
         testBreach.setOrganisation("Example Org");
-        testBreach.setDate(LocalDateTime.now());
-        testBreach.setDescription("Sample breach description");
+        testBreach.setDate(LocalDate.now());
+        testBreach.setIncidentType("Sample breach IncidentType");
+        testBreach.setDataCompromised("Sample breach DataCompromised");
         testBreach.setAffectedUsers(5000);
     }
 
@@ -34,7 +35,8 @@ class BreachServiceTest {
 
         assertNotNull(savedBreach.getId()); // ID should be generated
         assertEquals("Example Org", savedBreach.getOrganisation());
-        assertEquals("Sample breach description", savedBreach.getDescription());
+        assertEquals("Sample breach IncidentType", savedBreach.getIncidentType());
+        assertEquals("Sample breach DataCompromised", savedBreach.getDataCompromised());
         assertEquals(5000, savedBreach.getAffectedUsers());
     }
 
@@ -54,7 +56,8 @@ class BreachServiceTest {
         Breach fetchedBreach = breachService.getBreachById(savedBreach.getId());
 
         assertEquals(savedBreach.getOrganisation(), fetchedBreach.getOrganisation());
-        assertEquals(savedBreach.getDescription(), fetchedBreach.getDescription());
+        assertEquals(savedBreach.getIncidentType(), fetchedBreach.getIncidentType());
+        assertEquals(savedBreach.getDataCompromised(), fetchedBreach.getDataCompromised());
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.cbfacademy.DataBreachTracker;
 
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,7 +31,7 @@ public class BreachService {
         return breachRepository.findByOrganisationContainingIgnoreCase(organisation);
     }
 
-    public List<Breach> getBreachesAfterDate(LocalDateTime date) {
+    public List<Breach> getBreachesAfterDate(LocalDate date) {
         return breachRepository.findByDateAfter(date);
     }
 
@@ -45,7 +45,8 @@ public class BreachService {
 
         existingBreach.setOrganisation(breach.getOrganisation());
         existingBreach.setDate(breach.getDate());
-        existingBreach.setDescription(breach.getDescription());
+        existingBreach.setIncidentType(breach.getIncidentType());
+        existingBreach.setDataCompromised(breach.getDataCompromised());
         existingBreach.setAffectedUsers(breach.getAffectedUsers());
 
         return breachRepository.save(existingBreach);
