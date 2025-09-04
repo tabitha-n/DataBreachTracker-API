@@ -1,24 +1,18 @@
 # 🫆 DataBreachTracker-API
 
-Every day, companies experience data breaches that expose sensitive personal and business information — sometimes affecting millions of people.
+Data is often called the “new gold” of the digital age. It powers everything from online shopping and mobile banking to global commerce and everyday apps. But with that value comes risk: when attackers steal data, the impact can reach millions of people and damage businesses worldwide.
 
-The Data Breach Tracker makes information about these breaches accessible to different audiences:
+Data security isn’t just for IT specialists anymore—it’s something we all share responsibility for. Whether it’s an individual protecting their bank account, a company safeguarding its reputation, or a government protecting critical infrastructure, security begins with awareness.
 
-1. For researchers, developers, and cybersecurity enthusiasts.
+That’s where the Data Breach Tracker API comes in. It organises raw breach data into five key records—organisation, date, type of incident, data compromised, and affected users—making it easy to access and understand. Unlike services that require you to enter personal details to check breaches, this API lets you query organisations only, helping users avoid the risk of exposing their own information.
 
-    As a cybersecurity enthusiast or developer, I want to use this API to access and manage data breach records so that I can analyse trends, build dashboards, or integrate the information into my own tools.
+The aim is to turn raw breach data into useful insights for:
 
-2. For the general public.
+    🔍 Researchers, developers, and cybersecurity enthusiasts who want to analyse trends, build dashboards, or integrate breach data into tools.
 
-    As a member of the general public, I want to access a simple, user-friendly interface (planned for the future) that keeps me informed about data breaches, so I can understand their scale and impact without needing technical knowledge.
+    🌍 The general public (through a future website) who want to stay informed about breaches in a simple, non-technical way.
 
-## 🕵 What the API Tells You
-
-    📌 Which companies had a data breach
-
-    📌 What kind of information was lost
-
-    📌 When the breach happened
+The API back end is currently under development and will be deployed on Render, with a future front end hosted on Netlify.
 
 ## ✴️ Features
 
@@ -35,6 +29,8 @@ The Data Breach Tracker makes information about these breaches accessible to dif
     ⚡ Fully functional with a MySQL database
 
     ⚠️ Exception handling with helpful error responses
+
+    🌐 Optional external breach API via haveibeenpwned.com
 
 ## ⚙ Tech Stack
 
@@ -91,14 +87,43 @@ The Data Breach Tracker makes information about these breaches accessible to dif
       ./mvnw spring-boot:run
 
 ## 🔗 API Endpoints
-| Method | Endpoint                          | Description                     |
-|--------|----------------------------------|---------------------------------|
-| GET    | `/api/breaches`                     | Get all breaches                |
-| GET    | `/api/breaches?organisation={name}`| Filter breaches by organisation |
-| GET    | `/api/breaches/{id}`                | Get a breach by ID              |
-| POST   | `/api/breaches`                     | Add a new breach                |
-| PUT    | `/api/breaches/{id}`                | Update a breach                 |
-| DELETE | `/api/breaches/{id}`                | Delete a breach                 |
+
+### Internal Database Endpoints
+
+    These endpoints access data stored in your local database (MySQL):
+
+| Method | Endpoint                           | Description                                 |
+|--------|----------------------------------- |---------------------------------------------|
+| GET    | `/api/breaches`                    | Get all breaches                            |
+| GET    | `/api/breaches?organisation={name}`| Filter breaches by organisation             |
+| GET    | `/api/breaches/{id}`               | Get a breach by ID                          |
+| POST   | `/api/breaches`                    | Add a new breach                            |
+| PUT    | `/api/breaches/{id}`               | Update a breach                             |
+| DELETE | `/api/breaches/{id}`               | Delete a breach                             |
+
+### External HIBP Endpoint
+
+    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. 
+    
+    Unlike HIBP, which usually requires you to enter personal details, this endpoint only uses the organisation name.
+
+    This minimises the risk of exposing personal information.
+
+| Method | Endpoint                           | Description                                              |
+|--------|----------------------------------- |----------------------------------------------------------|
+| GET    | `/api/hibp-breaches/{org}`         | Query breaches associated with a specific organisation   | 
+
+### 👮 Using Postman
+
+    1. Open Postman (https://www.postman.com/) and create a new request.
+
+    2. Select the HTTP method (GET, POST, etc.).
+
+    3. Enter the endpoint URL e.g. http://localhost:8080/api/breaches or http://localhost:8080/api/hibp-breaches/facebook.com
+
+    4. Click Send and view the response in JSON format.
+
+    5. For POST or PUT requests, include a JSON body with the breach information.
 
 ## 🧪 Maven Tests
 | Command                   | Description                                      |
@@ -119,19 +144,23 @@ Holds the details of a data breach, like company name, date, number of people af
 
 ### 📁 BreachRepository.java	        
 
-Keeps and finds breach records in the database. Helps the app look up breaches quickly.
+Manages breach records in the database.
 
 ### 📁 BreachService.java	          
 
-Decides how to handle breach information. Adds new breaches, updates them, finds them, or deletes them.
+Handles business logic for adding, updating, retrieving, and deleting breaches.
 
 ### 📁 BreachController.java	
 
-Handles requests from users or apps. Lets people see, add, change, or remove breach information.
+Provides API endpoints to manage breaches internally.
+
+### 📁 HibpBreachController.java	
+
+External API controller connecting to Have I Been Pwned.
 
 ### 📁 BreachNotFoundException.java	
 
-Shows an error message if someone tries to get a breach that doesn’t exist.
+Signals when a requested breach doesn’t exist.
 
 ### 📁 GlobalExceptionHandler.java	
 
@@ -140,4 +169,12 @@ Catches errors and sends easy-to-read messages back to the user.
 ### 📁 DataBreachTrackerApplication.java	
 
 Starts the DataBreachTracker app so it can run and show information about breaches.
+
+### 📁 DataBreachTrackerApplicationTests.java	
+
+Confirms that the Spring Boot application starts without errors.
+
+### 📁 BreachUnitTest.java	
+
+Unit test for the Breach class, checking that getters and setters correctly store and retrieve breach data.
 
