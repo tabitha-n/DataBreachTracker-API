@@ -7,21 +7,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 // JPA Entity representing a data breach
-@Entity
+@Entity 
 public class Breach {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generated ID
+
+    // Attributes
     private Long id; // Read-only, managed by JPA
 
-    private String organisation;
+    private String organisation; 
     private LocalDate date;
     private String incidentType;
     private String dataCompromised;
     private int affectedUsers;
 
+    // No-arg constructor (required by JPA)
     public Breach() {}
 
+    // Parameterized constructor (excluding ID)
+    // Creates a new Breach object; provides values for all fields except ID
     public Breach(String organisation, LocalDate date, String incidentType, String dataCompromised, int affectedUsers) {
         this.organisation = organisation;
         this.date = date;
@@ -30,7 +35,9 @@ public class Breach {
         this.affectedUsers = affectedUsers;
     }
 
+    // Methods - Getters(to retrieve data) and Setters (to modify data)
     public Long getId() { return id; } // No setter
+
 
     public String getOrganisation() { return organisation; }
     public void setOrganisation(String organisation) { this.organisation = organisation; }

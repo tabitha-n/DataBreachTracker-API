@@ -5,11 +5,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BreachRepository extends JpaRepository<Breach, Long> {
+
+    // Custom query method to find breaches by organisation name
     List<Breach> findByOrganisation(String organisation);
 
-    // New filtering methods
-    List<Breach> findByOrganisationContainingIgnoreCase(String organisation);
-    List<Breach> findByDateAfter(LocalDate date);
+    // Custom query method to find breaches where organisation name contains a substring (case-insensitive)
+    List<Breach> findByOrganisationContainingIgnoreCase(String organisation); // Case-insensitive search
+    List<Breach> findByDateAfter(LocalDate date); // Find breaches after a specific date
 }
 
-
+// The BreachRepository interface extends JpaRepository, providing CRUD operations for the Breach entity.
+// It also includes custom query methods to find breaches by organisation name, filter by organisation name (case-insensitive), and find breaches that occurred after a specific date.
