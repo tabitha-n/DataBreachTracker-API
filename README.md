@@ -1,18 +1,16 @@
 # 🫆 DataBreachTracker-API
 
-Data is often called the “new gold” of the digital age. It powers everything from online shopping and mobile banking to global commerce and everyday apps. But with that value comes risk: when attackers steal data, the impact can reach millions of people and damage businesses worldwide.
+Data is often called the “new gold” of the digital age. It powers everything from online shopping and mobile banking to global commerce and everyday apps. But with that value comes risk: when attackers steal data, the impact can reach millions of people and affect businesses and governments worldwide.
 
-Data security isn’t just for IT specialists anymore—it’s something we all share responsibility for. Whether it’s an individual protecting their bank account, a company safeguarding its reputation, or a government protecting critical infrastructure, security begins with awareness.
+Data security isn’t just for IT specialists anymore—it’s something we all share responsibility for. Whether it’s an individual protecting their accounts, a company safeguarding its reputation, or a government protecting critical infrastructure, security starts with awareness.
 
-That’s where the Data Breach Tracker API comes in. It organises raw breach data into five key records—organisation, date, type of incident, data compromised, and affected users—making it easy to access and understand. Unlike services that require you to enter personal details to check breaches, this API lets you query organisations only, helping users avoid the risk of exposing their own information.
+The Data Breach Tracker API organises raw breach data into five key records—organisation, date, type of incident, data compromised, and affected users—making it easier to access, query, and understand. Unlike other services that require personal details to check breaches, this API only queries organisations, reducing the risk of exposing sensitive personal information.
 
-The aim is to turn raw breach data into useful insights for:
+The API aims to provide useful insights for:
 
-    🔍 Researchers, developers, and cybersecurity enthusiasts who want to analyse trends, build dashboards, or integrate breach data into tools.
+🔍 Researchers, developers, and cybersecurity enthusiasts – analyse trends, build dashboards, or integrate breach data into tools.
 
-    🌍 The general public (through a future website) who want to stay informed about breaches in a simple, non-technical way.
-
-The API back end is currently under development and will be deployed on Render, with a future front end hosted on Netlify.
+🌍 The general public (through a future website) – stay informed about breaches in a simple, non-technical way.
 
 ## ✴️ Features
 
@@ -30,7 +28,7 @@ The API back end is currently under development and will be deployed on Render, 
 
     ⚠️ Exception handling with helpful error responses
 
-    🌐 Optional external breach API via haveibeenpwned.com
+    🌐 Optional external breach API via Have I Been Pwned (organisation only)
 
 ## ⚙ Tech Stack
 
@@ -41,6 +39,40 @@ The API back end is currently under development and will be deployed on Render, 
     MySQL 8+  
 
     Maven (dependency management)
+
+## 🛡️ Project Cybersecurity Highlights 
+
+Even as a beginner project, DataBreachTracker demonstrates several fundamental cybersecurity principles:
+
+    Data Integrity & Validation
+
+• Breaches are only updated or deleted if they exist, preventing accidental or malicious misuse.
+
+• Some fields, like id, are read-only to protect the uniqueness of records.
+
+    Layered Security (Defense-in-Depth)
+
+∙ Controller layer: Handles all user requests and is the only part exposed externally.
+
+• Service layer: Manages business logic; keeps data operations separate from direct user access.
+
+• Repository layer: Communicates with the database; the rest of the app never interacts directly with the database.
+This separation minimizes risk and reduces potential attack surfaces.
+
+    Secure API Practices
+
+Proxy to external API: Your application queries Have I Been Pwned on behalf of the user, preventing users from exposing sensitive personal data.
+
+    Safe Credential Management
+
+Database credentials are stored in local.properties. The security benefits of this setup are:
+
+🔒 Keeps database credentials private
+
+⚠️ Prevents accidental leaks
+
+🛡️ Protects system from unauthorized access
+
 
 # 🚀 Setup Instructions
 
@@ -58,32 +90,33 @@ The API back end is currently under development and will be deployed on Render, 
 
   ### 3. Configure database credentials
 
-    The main configuration is in application.properties:
+    In application.properties:
 
-    # APPLICATION 
-    spring.application.name=DataBreachTracker
-    server.port=8080
+        APPLICATION: 
+        spring.application.name=DataBreachTracker
+        server.port=8080
 
-    # DATABASE CONFIGURATION
-    spring.datasource.url=jdbc:mysql://localhost:3306/databreachtracker?useSSL=false&serverTimezone=UTC
-    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-    spring.config.import=local.properties   # Database credentials are stored here (not committed to GitHub)
+        DATABASE CONFIGURATION:
+        spring.datasource.url=jdbc:mysql://localhost:3306/databreachtracker?useSSL=false&serverTimezone=UTC
+        spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+        spring.config.import=local.properties   # Database credentials are stored here (not committed to GitHub)
 
-    # HIBERNATE CONFIGURATION
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
+        HIBERNATE CONFIGURATION:
+        spring.jpa.hibernate.ddl-auto=update
+        spring.jpa.show-sql=true
 
-    👉 Important: 
-      Create a file called local.properties in the root of your project with your MySQL username and password:
+    In local.properties
+    Create a file in the root of your project with your MySQL username and password:
 
-      spring.datasource.username=yourUsername
-      spring.datasource.password=yourPassword
+        spring.datasource.username=yourUsername
+        spring.datasource.password=yourPassword
 
-    ⛔️ It should be excluded via .gitignore 
+    ⛔️ This file should be excluded via .gitignore (which tells Git which files not to track or upload to GitHub).
+
+    
 
   ### 4. Run the application
 
-      From the terminal:
       ./mvnw spring-boot:run
 
 ## 🔗 API Endpoints
@@ -101,25 +134,35 @@ The API back end is currently under development and will be deployed on Render, 
 | PUT    | `/api/breaches/{id}`               | Update a breach                             |
 | DELETE | `/api/breaches/{id}`               | Delete a breach                             |
 
+    Note:
+    Each breach has a unique id (primary key). Using both id and organisation provides flexible and reliable searching:
+
+    🔑 id uniquely identifies each record, even if multiple breaches exist for the same organisation.
+
+    🏢 organisation allows easy searching and filtering by company name.
+
+    Together, they ensure you can accurately retrieve, update, or delete records.
+
 ### External HIBP Endpoint
-
-    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. 
-    
-    Unlike HIBP, which usually requires you to enter personal details, this endpoint only uses the organisation name.
-
-    This minimises the risk of exposing personal information.
 
 | Method | Endpoint                           | Description                                              |
 |--------|----------------------------------- |----------------------------------------------------------|
 | GET    | `/api/hibp-breaches/{org}`         | Query breaches associated with a specific organisation   | 
 
-### 👮 Using Postman
+    Note:
+    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. Your API only queries organisation names, reducing the risk of exposing personal data.
+
+## 👮 Using Postman 
 
     1. Open Postman (https://www.postman.com/) and create a new request.
 
     2. Select the HTTP method (GET, POST, etc.).
 
-    3. Enter the endpoint URL e.g. http://localhost:8080/api/breaches or http://localhost:8080/api/hibp-breaches/facebook.com
+    3. Enter the endpoint URL e.g.:
+
+        • http://localhost:8080/api/breaches
+
+        • http://localhost:8080/api/hibp-breaches/facebook.com
 
     4. Click Send and view the response in JSON format.
 
@@ -132,49 +175,51 @@ The API back end is currently under development and will be deployed on Render, 
 | `./mvnw compile`          | Compiles the project                             |
 | `./mvnw test`             | Runs unit tests                                  |
 | `./mvnw clean test`       | Cleans and runs tests                            |
-| `./mvnw package`          | Builds the project into a JAR file              |
 | `./mvnw spring-boot:run`  | Runs the Spring Boot application    
 
 
 ## 🗄️ Files Overview
 
-### 📁 Breach.java	                  
+    📁 Breach.java
 
-Holds the details of a data breach, like company name, date, number of people affected, and what information was exposed.
+Holds breach details like organisation, date, data compromised, affected users, and a unique id primary key.
 
-### 📁 BreachRepository.java	        
+    📁 BreachController.java
 
-Manages breach records in the database.
+Internal API endpoints to manage breaches.
 
-### 📁 BreachService.java	          
+    📁 HibpBreachController.java
+
+External API connecting to Have I Been Pwned, querying organisation names only.
+
+    📁 BreachService.java
 
 Handles business logic for adding, updating, retrieving, and deleting breaches.
 
-### 📁 BreachController.java	
+    📁 BreachRepository.java
 
-Provides API endpoints to manage breaches internally.
+Manages breach records in the database.
 
-### 📁 HibpBreachController.java	
-
-External API controller connecting to Have I Been Pwned.
-
-### 📁 BreachNotFoundException.java	
+    📁 BreachNotFoundException.java
 
 Signals when a requested breach doesn’t exist.
 
-### 📁 GlobalExceptionHandler.java	
+        📁 GlobalExceptionHandler.java
 
-Catches errors and sends easy-to-read messages back to the user.
+Handles application errors and returns:
 
-### 📁 DataBreachTrackerApplication.java	
+• Structured messages for specific exceptions (e.g., BreachNotFoundException)
 
-Starts the DataBreachTracker app so it can run and show information about breaches.
+• Generic errors with appropriate HTTP status codes
 
-### 📁 DataBreachTrackerApplicationTests.java	
+    📁 DataBreachTrackerApplication.java
 
-Confirms that the Spring Boot application starts without errors.
+Starts the Spring Boot application.
 
-### 📁 BreachUnitTest.java	
+    📁 DataBreachTrackerApplicationTests.java
 
-Unit test for the Breach class, checking that getters and setters correctly store and retrieve breach data.
+Confirms the Spring Boot app starts successfully.
 
+    📁 BreachUnitTest.java
+
+Unit tests for the Breach class getters and setters.
