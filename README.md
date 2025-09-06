@@ -152,7 +152,7 @@ This approach ensures:
 
     🏢 organisation allows easy searching and filtering by company name.
 
-    Together, they ensure you can accurately retrieve, update, or delete records.
+    Together, they ensure that one can accurately retrieve, update, or delete records.
 
 ### External HIBP Endpoint
 
@@ -161,7 +161,7 @@ This approach ensures:
 | GET    | `/api/hibp-breaches/{org}`         | Query breaches associated with a specific organisation   | 
 
     Note:
-    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. Your API only queries organisation names, reducing the risk of exposing personal data.
+    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. The API only queries organisation names, reducing the risk of exposing personal data.
 
 ## 👮 Using Postman 
 
