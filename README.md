@@ -62,9 +62,9 @@ Even as a beginner project, DataBreachTracker demonstrates several fundamental c
 
     🌐 Secure API Practices
 
-• Proxy to external API: The app queries Have I Been Pwned on behalf of the user. This prevents users from exposing personal data directly.
+• Acts as a proxy to Have I Been Pwned, handling requests on behalf of users so that personal information is never sent directly to the external service. This protects sensitive data while still providing breach information for organisations.
 
-∙ User-Agent header: Properly identifies the app to the external API, a small but important step in secure communication.
+∙ Adds a User-Agent header to identify the app securely when calling external APIs.
 
     🔑 Hibernate & Security
 
