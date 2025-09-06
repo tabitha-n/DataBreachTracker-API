@@ -44,34 +44,45 @@ The API aims to provide useful insights for:
 
 Even as a beginner project, DataBreachTracker demonstrates several fundamental cybersecurity principles:
 
-    Data Integrity & Validation
+    🔒 Data Integrity & Validation
 
 • Breaches are only updated or deleted if they exist, preventing accidental or malicious misuse.
 
-• Some fields, like id, are read-only to protect the uniqueness of records.
+• Some fields, like id, are read-only to protect the uniqueness of records and prevent tampering.
 
-    Layered Security (Defense-in-Depth)
+    🛡️ Layered Security (Defense-in-Depth)
 
-∙ Controller layer: Handles all user requests and is the only part exposed externally.
+• Controller layer: Handles all user requests and is the only part exposed externally.
 
-• Service layer: Manages business logic; keeps data operations separate from direct user access.
+• Service layer: Manages business logic and makes sure requests are valid before reaching the database.
 
-• Repository layer: Communicates with the database; the rest of the app never interacts directly with the database.
-This separation minimizes risk and reduces potential attack surfaces.
+∙ Repository layer: Talks to the database directly. Other parts of the app never touch the database.
 
-    Secure API Practices
+👉 This separation reduces risks and keeps each layer responsible for its own job.
 
-Proxy to external API: Your application queries Have I Been Pwned on behalf of the user, preventing users from exposing sensitive personal data.
+    🌐 Secure API Practices
 
-    Safe Credential Management
+• Proxy to external API: The app queries Have I Been Pwned on behalf of the user. This prevents users from exposing personal data directly.
 
-Database credentials are stored in local.properties. The security benefits of this setup are:
+∙ User-Agent header: Properly identifies the app to the external API, a small but important step in secure communication.
 
-🔒 Keeps database credentials private
+    🔑 Hibernate & Security
 
-⚠️ Prevents accidental leaks
+• Acts as a bridge between Java objects and database tables, eliminating the need to write raw SQL queries.
 
-🛡️ Protects system from unauthorized access
+∙ Helps prevent SQL injection attacks, where hackers try to run malicious queries on the database, making interactions safer by default.
+
+    🗝️ Safe Credential Management
+
+∙ Database credentials are stored in local.properties (excluded from GitHub via .gitignore).
+
+This approach ensures:
+
+🔒 Credentials stay private
+
+⚠️ Accidental leaks are prevented
+
+🛡️ Systems are protected from unauthorized access
 
 
 # 🚀 Setup Instructions
