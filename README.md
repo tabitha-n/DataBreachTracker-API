@@ -1,5 +1,10 @@
 # 🫆 DataBreachTracker-API
 
+**Project Summary:** 
+
+DataBreachTracker-API is a Java Spring Boot API that tracks cybersecurity breaches with MySQL CRUD operations, filtered queries, secure external API integration, structured error handling, and beginner-level cybersecurity best practices.
+
+## Why Data Security Matters
 Data is often called the “new gold” of the digital age. It powers everything from online shopping and mobile banking to global commerce and everyday apps. But with that value comes risk: when attackers steal data, the impact can reach millions of people and affect businesses and governments worldwide.
 
 Data security isn’t just for IT specialists anymore—it’s something we all share responsibility for. Whether it’s an individual protecting their accounts, a company safeguarding its reputation, or a government protecting critical infrastructure, security starts with awareness.
