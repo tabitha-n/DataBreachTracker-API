@@ -12,6 +12,9 @@ import org.springframework.http.MediaType;
 public class HibpBreachController {
 
     // Endpoint to fetch breaches from Have I Been Pwned API
+    // ⚠️ Note: HIBP expects a full domain name (e.g., "tesco.com", not just "tesco")
+    // This design avoids handling personal data like emails, improving security
+    
     @GetMapping(value = "/api/hibp-breaches/{org}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getBreaches(@PathVariable String org) throws IOException {
 

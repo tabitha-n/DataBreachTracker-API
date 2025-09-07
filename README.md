@@ -160,8 +160,19 @@ This approach ensures:
 |--------|----------------------------------- |----------------------------------------------------------|
 | GET    | `/api/hibp-breaches/{org}`         | Query breaches associated with a specific organisation   | 
 
-    Note:
-    This endpoint connects to Have I Been Pwned, a public service reporting real-world data breaches. The API only queries organisation names, reducing the risk of exposing personal data.
+    📝 Note:
+
+    This connects to Have I Been Pwned, a public service reporting real-world data breaches.
+
+    Unlike the internal API, this endpoint requires a domain name. For example: 
+    
+    http://localhost:8080/api/hibp-breaches/tesco.com
+    
+    http://localhost:8080/api/hibp-breaches/facebook.com
+    
+    Supplying only the organisation name (e.g., tesco) will return no results because HIBP expects a fully qualified domain.
+
+    The API only queries organisation names, reducing the risk of exposing personal data.
 
 ## 👮 Using Postman 
 
